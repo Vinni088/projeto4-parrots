@@ -21,9 +21,9 @@ function comparador() {
 ////////////////////////////////////////////////////////////
 
 const TextoCarta = 
-`<div onclick="flip(this)" class="carta"> 
+`<div onclick="flip(this)" data-test="card" class="carta"> 
     <div class="frente pra-cima">
-        <img src=` + endereçoBackground + ` alt="">
+        <img data-test="face-down-image" src=` + endereçoBackground + ` alt="">
     </div>
     <div class="verso pra-baixo">
         
@@ -114,7 +114,7 @@ baralho.sort(comparador);
 
 for (let i = 0; i < numeroValido; i++) {
     const cartas = document.querySelectorAll(".carta .verso");
-    cartas[i].innerHTML += `<img src=` + baralho[i] + ` alt="">`;
+    cartas[i].innerHTML += `<img data-test="face-up-image" src=` + baralho[i] + ` alt="">`;
 }
 
 //Distribui as imagens nas cartas
