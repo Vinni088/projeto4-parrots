@@ -4,27 +4,21 @@
 
 body {
     background: #EEF9BF;
-    padding: 10%;
+    padding: 40px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    gap: 50px;
+    gap: 45px;
 }
 .Cabeça {
-    position: absolute;
-    width: 650px;
-    height: 63px;
-    left: 285px;
-    top: 40px;
-    
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-size: 56px;
     line-height: 66px;
     letter-spacing: -0.004em;
-    
+    border: 1px red solid;
     color: #75B79E;
 }
 .card-space {
@@ -36,6 +30,7 @@ body {
     gap: 20px;
     width: 1050px;
     height: 330px;
+    border: 1px red solid;
 }
 
 .card-row {
@@ -89,6 +84,6 @@ body {
     backface-visibility: hidden;
     transform-style: preserve-3d;
 }
-.pra-baixo {
+.pra-baixo, .fliped, .fliped-permanente {
     transform: rotateY(-180deg);
 }
