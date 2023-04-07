@@ -1,8 +1,8 @@
 ////////////////////////////////////////////////////////////
-const endereçoBackground = `"./assets/imagens/back.png"`
+const backimgs = `"./assets/imagens/back.png"`;
 //endereço da imagem de cima das cartas
 ////////////////////////////////////////////////////////////
-const endereçosImagens = [
+const frontimgs = [
     `"./assets/imagens/bobrossparrot.gif"`,
     `"./assets/imagens/explodyparrot.gif"`,
     `"./assets/imagens/fiestaparrot.gif"`,
@@ -13,17 +13,18 @@ const endereçosImagens = [
 ];
 //endereço das imagens de baixo das cartas
 ////////////////////////////////////////////////////////////
-endereçosImagens.sort(comparador); 
-function comparador() { 
-    return Math.random() - 0.5; 
+frontimgs.sort(comparador);
+function comparador() {
+    let meio = 0.5;
+    return Math.random() - meio;
 }
 //endereços de baixo das cartas embaralhados
 ////////////////////////////////////////////////////////////
 
-const TextoCarta = 
+const TextoCarta =
 `<div onclick="flip(this)" data-test="card" class="carta"> 
     <div class="frente pra-cima">
-        <img data-test="face-down-image" src=` + endereçoBackground + ` alt="">
+        <img data-test="face-down-image" src=` + backimgs + ` alt="">
     </div>
     <div class="verso pra-baixo">
         
@@ -33,86 +34,84 @@ const TextoCarta =
 ////////////////////////////////////////////////////////////
 
 let contadordeJogadas = 0;
+let dois = 2;
+let minimodecartas = 4;
+let maximodecartas = 14;
 //Textos geradores de cada carta originalmente
 ////////////////////////////////////////////////////////////
     let intervalo;
 function flip(seletor) {
     seletor.classList.toggle("fliped");
-    let cartasViradas = document.querySelectorAll(".fliped");
-    if (cartasViradas.length == 2 && cartasViradas[0].innerHTML !== cartasViradas[1].innerHTML) {
-        setTimeout(Unflip, 1000);
-        
+    let cartasviradas = document.querySelectorAll(".fliped");
+    if (cartasviradas.length === dois && cartasviradas[0].innerHTML !== cartasviradas[1].innerHTML) {
+        setTimeout(unflip, 1000);
     }
-    if (cartasViradas.length == 2 && cartasViradas[0].innerHTML == cartasViradas[1].innerHTML) {
+    if (cartasviradas.length == dois && cartasviradas[0].innerHTML == cartasviradas[1].innerHTML) {
         keepFliped();
     }
-    if (cartasViradas.length > 2) {
-        cartasViradas[0].classList.remove("fliped");
-        cartasViradas[1].classList.remove("fliped");
-        cartasViradas[2].classList.remove("fliped");
+    if (cartasviradas.length > dois) {
+        cartasviradas[0].classList.remove("fliped");
+        cartasviradas[1].classList.remove("fliped");
+        cartasviradas[dois].classList.remove("fliped");
     }
-    
     contadordeJogadas++;
     ganhou();
-    //setInterval(Pares, 3500, seletor);
-    //const intervalo = setInterval(Pares, 3500, seletor);
-    //clearInterval(intervalo);
 }
 //função de flip das cartas e procura Pares
 ////////////////////////////////////////////////////////////
 
-function Unflip() {
-    let cartasViradas = document.querySelectorAll(".fliped");
-    cartasViradas[0].classList.remove("fliped");
-    cartasViradas[1].classList.remove("fliped");
+function unflip() {
+    let cartasviradas = document.querySelectorAll(".fliped");
+    cartasviradas[0].classList.remove("fliped");
+    cartasviradas[1].classList.remove("fliped");
 }
 
 function keepFliped() {
-    let cartasViradas = document.querySelectorAll(".fliped");
-    cartasViradas[0].classList.remove("fliped");
-    cartasViradas[1].classList.remove("fliped");
-    cartasViradas[0].classList.add("fliped-permanente");
-    cartasViradas[1].classList.add("fliped-permanente");
+    let cartasviradas = document.querySelectorAll(".fliped");
+    cartasviradas[0].classList.remove("fliped");
+    cartasviradas[1].classList.remove("fliped");
+    cartasviradas[0].classList.add("fliped-permanente");
+    cartasviradas[1].classList.add("fliped-permanente");
 }
 
 //função flip and unflip
 ////////////////////////////////////////////////////////////
 
 function teste(x) {
-    if (x % 2 != 0 || x < 4 || x > 14) {
+    if (x % dois !== 0 || x < minimodecartas || x > maximodecartas) {
         x = prompt('Por favor, esscolha um número par entre 4 e 14');
         teste(x);
     } else {
-        window.numeroValido = x;
+        window.numerovalido = x;
     }
 }
 //Função de teste para validade do numero de cartas
 ////////////////////////////////////////////////////////////
 
-let NumeroDeCartas = prompt('Com Quantas Cartas deseja jogar? Escolha um número par entre 4 e 14');
-if (NumeroDeCartas % 2 != 0 || NumeroDeCartas < 4 || NumeroDeCartas > 14) {
-    NumeroDeCartas = prompt('Por favor, esscolha um número par entre 4 e 14');
-    teste(NumeroDeCartas);
+let numerodecartas = prompt('Com Quantas Cartas deseja jogar? Escolha um número par entre 4 e 14');
+if (numerodecartas % dois !== 0 || numerodecartas < minimodecartas || numerodecartas > maximodecartas) {
+    numerodecartas = prompt('Por favor, esscolha um número par entre 4 e 14');
+    teste(numerodecartas);
 } else {
-    window.numeroValido = NumeroDeCartas;
+    window.numerovalido = numerodecartas;
 }
 
-for (let j = 0; j < window.numeroValido; j++) {
+for (let j = 0; j < window.numerovalido; j++) {
     const mesa = document.querySelector(".card-space");
-    mesa.innerHTML = mesa.innerHTML + TextoCarta; 
+    mesa.innerHTML = mesa.innerHTML + TextoCarta;
 }
-//Cartas geradas segundo o numeroValido do prompt
+//Cartas geradas segundo o numerovalido do prompt
 ////////////////////////////////////////////////////////////
-let n1 = numeroValido/2;
+const n1 = window.numerovalido/dois;
 
-let baralho1 = endereçosImagens.slice(0, n1);
-let baralho = baralho1.concat(baralho1);
+const baralho1 = frontimgs.slice(0, n1);
+const baralho = baralho1.concat(baralho1);
 baralho.sort(comparador); 
 
 //cortar e distribuir o numero de cartas do prompt
 ////////////////////////////////////////////////////////////
 
-for (let i = 0; i < numeroValido; i++) {
+for (let i = 0; i < numerovalido; i++) {
     const cartas = document.querySelectorAll(".carta .verso");
     cartas[i].innerHTML += `<img data-test="face-up-image" src=` + baralho[i] + ` alt="">`;
 }
@@ -120,8 +119,8 @@ for (let i = 0; i < numeroValido; i++) {
 //Distribui as imagens nas cartas
 ////////////////////////////////////////////////////////////
 function ganhou() {
-    cartasCertas = document.querySelectorAll(".fliped-permanente");
-    if (cartasCertas.length == baralho.length) {
+    const cartasCertas = document.querySelectorAll(".fliped-permanente");
+    if (cartasCertas.length === baralho.length) {
         alert(`Você ganhou em ${contadordeJogadas} jogadas!`);
     }
 
