@@ -76,13 +76,13 @@ function keepFliped() {
 
 //função flip and unflip
 ////////////////////////////////////////////////////////////
-
+var numerovalido;
 function teste(x) {
     if (x % dois !== 0 || x < minimodecartas || x > maximodecartas) {
         x = prompt('Por favor, esscolha um número par entre 4 e 14');
         teste(x);
     } else {
-        window.numerovalido = x;
+        numerovalido = x;
     }
 }
 //Função de teste para validade do numero de cartas
@@ -93,16 +93,16 @@ if (numerodecartas % dois !== 0 || numerodecartas < minimodecartas || numerodeca
     numerodecartas = prompt('Por favor, esscolha um número par entre 4 e 14');
     teste(numerodecartas);
 } else {
-    window.numerovalido = numerodecartas;
+    numerovalido = numerodecartas;
 }
 
-for (let j = 0; j < window.numerovalido; j++) {
+for (let j = 0; j < numerovalido; j++) {
     const mesa = document.querySelector(".card-space");
     mesa.innerHTML = mesa.innerHTML + TextoCarta;
 }
 //Cartas geradas segundo o numerovalido do prompt
 ////////////////////////////////////////////////////////////
-const n1 = window.numerovalido/dois;
+const n1 = numerovalido/dois;
 
 const baralho1 = frontimgs.slice(0, n1);
 const baralho = baralho1.concat(baralho1);
